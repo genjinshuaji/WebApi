@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
+using Microsoft.EntityFrameworkCore.Sqlite;
 using TodoApi.Models;
 
 namespace TodoApi
@@ -21,7 +22,9 @@ namespace TodoApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<TodoContext>(opt => opt.UseInMemoryDatabase("TodoList"));
+            string connecttext = "Filename=F:\\workspace\\WebApi\\TodoApi\\DB\\TodoList.DB";
+            services.AddDbContext<TodoContext>(options => options.UseSqlite(connecttext));
+            //services.AddDbContext<TodoContext>(opt => opt.UseInMemoryDatabase("TodoList"));
             services.AddControllers().AddNewtonsoftJson();
         }
 
